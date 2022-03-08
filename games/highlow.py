@@ -4,8 +4,10 @@ from utils.shared import data
 
 
 def highlow(username, channel_id, token, config, user_id, session_id):
+    sleep(1)
     send_message(channel_id, token, config, username, "p highlow")
     latest_message = retrieve_message(channel_id, token, config, username, "p highlow", user_id, session_id)
+    sleep(1)
 
     if latest_message is None:
         return
