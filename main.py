@@ -1,13 +1,19 @@
 # main.py
 
 import sys
-from time import sleep
-from discord import send_message
+from threading import Thread
+from discord import send_message, retrieve_message
 from os.path import dirname
 from configuration.config import load_config
 from configuration.credentials import load_credentials
 from utils.shared import data
 from memes.search import search_master
+from memes.crime import crime_master
+from memes.postmeme import postmeme_master
+from memes.basic import beg_master, dig_master, fish_master, hunt_master
+from games.highlow import highlow_master
+from games.guess import guess_master
+
 
 print(f"""
 
@@ -37,12 +43,37 @@ for index in range(len(credentials)):
     data[channel_id] = True
 
     send_message(channel_id, token, config, username, "p beg")
-    sleep(3)
-    send_message(channel_id, token, config, username, "p dig")
-    sleep(3)
-    send_message(channel_id, token, config, username, "p fish")
-    sleep(3)
-    send_message(channel_id, token, config, username, "p hunt")
-    sleep(3)
-    search_master(username, channel_id, token, config, user_id, session_id)
+    print("we're in")
 
+    while True:
+        latest_message = retrieve_message(channel_id, token, config, username, "p beg", user_id, session_id)
+
+        if latest_message is not None:
+            break
+
+    if config["commands"]["beg"]:
+        Thread(target=beg_master, args=(username, channel_id, token, config)).start()
+
+    if config["commands"]["crime"]:
+        Thread(target=crime_master, args=(username, channel_id, token, config, user_id, session_id)).start()
+
+    if config["commands"]["dig"]:
+        Thread(target=dig_master, args=(username, channel_id, token, config)).start()
+
+    if config["commands"]["fish"]:
+        Thread(target=fish_master, args=(username, channel_id, token, config)).start()
+
+    if config["commands"]["hunt"]:
+        Thread(target=hunt_master, args=(username, channel_id, token, config)).start()
+
+    if config["commands"]["search"]:
+        Thread(target=search_master, args=(username, channel_id, token, config, user_id, session_id)).start()
+
+    if config["commands"]["postmeme"]:
+        Thread(target=postmeme_master, args=(username, channel_id, token, config, user_id, session_id, cwd)).start()
+
+    if config["commands"]["highlow"]:
+        Thread(target=highlow_master, args=(username, channel_id, token, config, user_id, session_id)).start()
+
+    if config["commands"]["guess"]:
+        Thread(target=guess_master, args=(username, channel_id, token, config, user_id, session_id)).start()

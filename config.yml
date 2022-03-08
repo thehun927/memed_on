@@ -8,6 +8,7 @@ commands:
   highlow: True
   postmeme: True
   stream: True
+  guess: True
   
 cooldowns:
   patron: False

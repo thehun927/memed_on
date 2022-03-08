@@ -5,6 +5,8 @@ from utils.shared import data
 
 
 def search(username, channel_id, token, config, user_id, session_id):
+	send_message(channel_id, token, config, username, "p deposit all")
+	sleep(3)
 	send_message(channel_id, token, config, username, "p search")
 	latest_message = retrieve_message(channel_id, token, config, username, "p search", user_id)
 
@@ -28,7 +30,7 @@ def search_master(username, channel_id, token, config, user_id, session_id):
 		if config["cooldowns"]["patron"]:
 			cooldown = 15 - (end - start)
 		else:
-			cooldown = 30 - (end - start)
+			cooldown = 45 - (end - start)
 
 		if cooldown > 0:
 			sleep(cooldown)
