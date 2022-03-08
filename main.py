@@ -7,6 +7,7 @@ from os.path import dirname
 from configuration.config import load_config
 from configuration.credentials import load_credentials
 from utils.shared import data
+from memes.search import search_master
 
 print(f"""
 
@@ -36,10 +37,12 @@ for index in range(len(credentials)):
     data[channel_id] = True
 
     send_message(channel_id, token, config, username, "p beg")
-    sleep(2)
+    sleep(3)
     send_message(channel_id, token, config, username, "p dig")
-    sleep(2)
+    sleep(3)
     send_message(channel_id, token, config, username, "p fish")
-    sleep(2)
+    sleep(3)
     send_message(channel_id, token, config, username, "p hunt")
+    sleep(3)
+    search_master(username, channel_id, token, config, user_id, session_id)
 
