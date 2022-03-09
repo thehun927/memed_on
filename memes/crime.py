@@ -5,16 +5,23 @@ from utils.shared import data
 
 
 def crime(username, channel_id, token, config, user_id, session_id):
-    send_message(channel_id, token, config, username, "p deposit all")
-    sleep(3)
-    send_message(channel_id, token, config, username, "p crime")
-    latest_message = retrieve_message(channel_id, token, config, username, "p crime", user_id)
 
-    if latest_message is None:
+    try:
+        send_message(channel_id, token, config, username, "p deposit all")
+        sleep(3)
+        send_message(channel_id, token, config, username, "p crime")
+        latest_message = retrieve_message(channel_id, token, config, username, "p crime", user_id)
+
+        if latest_message is None:
+            return
+
+        interact_button(channel_id, token, config, username, "p crime",
+                        choice(latest_message["components"][0]["components"])["custom_id"], latest_message, session_id)
+
+    except IndexError:
+        print("index error - sleeping for 45 sec & passing")
+        sleep(45)
         return
-
-    interact_button(channel_id, token, config, username, "p crime",
-                    choice(latest_message["components"][0]["components"])["custom_id"], latest_message, session_id)
 
 
 def crime_master(username, channel_id, token, config, user_id, session_id):

@@ -1,6 +1,7 @@
 # main.py
 
 import sys
+import os
 from threading import Thread
 from discord import send_message, retrieve_message
 from os.path import dirname
@@ -13,7 +14,6 @@ from memes.postmeme import postmeme_master
 from memes.basic import beg_master, dig_master, fish_master, hunt_master
 from games.highlow import highlow_master
 from games.guess import guess_master
-
 
 print(f"""
 
@@ -70,10 +70,14 @@ for index in range(len(credentials)):
         Thread(target=search_master, args=(username, channel_id, token, config, user_id, session_id)).start()
 
     if config["commands"]["postmeme"]:
-        Thread(target=postmeme_master, args=(username, channel_id, token, config, user_id, session_id, cwd)).start()
+        Thread(target=postmeme_master, args=(username, channel_id, token, config, user_id, session_id)).start()
 
     if config["commands"]["highlow"]:
         Thread(target=highlow_master, args=(username, channel_id, token, config, user_id, session_id)).start()
 
     if config["commands"]["guess"]:
         Thread(target=guess_master, args=(username, channel_id, token, config, user_id, session_id)).start()
+
+
+
+

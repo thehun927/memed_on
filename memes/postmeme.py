@@ -4,24 +4,34 @@ from time import time, sleep
 from utils.shared import data
 
 
-def postmeme(username, channel_id, token, config, user_id, session_id, cwd):
-    send_message(channel_id, token, config, username, "p postmeme")
-    latest_message = retrieve_message(channel_id, token, config, username, "p postmeme", user_id)
+def postmeme(username, channel_id, token, config, user_id, session_id):
 
-    if latest_message is None:
+    try:
+        sleep(2)
+        send_message(channel_id, token, config, username, "p postmeme")
+        latest_message = retrieve_message(channel_id, token, config, username, "p postmeme", user_id)
+        sleep(1)
+
+        if latest_message is None:
+            return
+
+        interact_button(channel_id, token, config, username, "p postmeme",
+                        choice(latest_message["components"][0]["components"])["custom_id"], latest_message, session_id)
+
+    except IndexError:
+        print("index error - sleeping for 45 sec & passing")
+        sleep(45)
         return
 
-    interact_button(channel_id, token, config, username, "p postmeme", choice(latest_message["components"][0]["components"])["custom_id"], latest_message, session_id)
 
-
-def postmeme_master(username, channel_id, token, config, user_id, session_id, cwd):
+def postmeme_master(username, channel_id, token, config, user_id, session_id):
     while True:
         while not data[channel_id]:
             pass
 
         data[channel_id] = False
         start = time()
-        postmeme(username, channel_id, token, config, user_id, session_id, cwd)
+        postmeme(username, channel_id, token, config, user_id, session_id)
         end = time()
         data[channel_id] = True
 

@@ -5,22 +5,26 @@ from utils.shared import data
 
 def beg(username, channel_id, token, config):
     send_message(channel_id, token, config, username, "p beg")
+    sleep(3)
 
 
 def dig(username, channel_id, token, config):
     send_message(channel_id, token, config, username, "p dig")
+    sleep(3)
 
 
 def fish(username, channel_id, token, config):
     send_message(channel_id, token, config, username, "p fish")
+    sleep(3)
 
 
 def hunt(username, channel_id, token, config):
     send_message(channel_id, token, config, username, "p hunt")
+    sleep(3)
 
 
 def beg_master(username, channel_id, token, config):
-    sleep(45)
+    sleep(5)
 
     while True:
         while not data[channel_id]:
@@ -42,7 +46,7 @@ def beg_master(username, channel_id, token, config):
 
 
 def dig_master(username, channel_id, token, config):
-    sleep(45)
+    sleep(5)
 
     while True:
         while not data[channel_id]:
@@ -64,7 +68,7 @@ def dig_master(username, channel_id, token, config):
 
 
 def fish_master(username, channel_id, token, config):
-    sleep(45)
+    sleep(5)
 
     while True:
         while not data[channel_id]:
@@ -86,7 +90,7 @@ def fish_master(username, channel_id, token, config):
 
 
 def hunt_master(username, channel_id, token, config):
-    sleep(45)
+    sleep(5)
 
     while True:
         while not data[channel_id]:
